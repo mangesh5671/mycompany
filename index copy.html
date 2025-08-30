@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazyDeveloper Teched - Building Smart Software Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=HK+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['HK Grotesk', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                        'hk': ['HK Grotesk', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'slideDown': 'slideDown 0.3s ease-out',
+                        'slideUp': 'slideUp 0.3s ease-in',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            }
+                        },
+                        gradient: {
+                            '0%, 100%': {
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        slideDown: {
+                            '0%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            },
+                            '100%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            },
+                            '100%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #e4e4e4, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient 25s ease infinite;
+        }
+        
+        .code-animation {
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            font-family: 'HK Grotesk', sans-serif;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-10 sm:h-12">
+                    </a>
+                </div>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+                    <a href="#services" class="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
+                    <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">Projects</a>
+                    <a href="#docs" class="text-gray-700 hover:text-blue-600 transition-colors">Docs</a>
+                    <a href="#blog" class="text-gray-700 hover:text-blue-600 transition-colors">Blog</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 hamburger">
+                    <div class="w-6 h-0.5 bg-gray-600 hamburger-line line1 mb-1"></div>
+                    <div class="w-6 h-0.5 bg-gray-600 hamburger-line line2 mb-1"></div>
+                    <div class="w-6 h-0.5 bg-gray-600 hamburger-line line3"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 right-0 w-64 h-screen bg-white shadow-2xl z-40">
+            <div class="flex flex-col p-6 space-y-6">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Home</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">About</a>
+                <a href="#services" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Services</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Projects</a>
+                <a href="#docs" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Docs</a>
+                <a href="#blog" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Blog</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Contact</a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen gradient-bg flex items-center justify-center relative overflow-hidden">
+        <!-- Floating Elements -->
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
+            <div class="absolute top-40 right-20 w-32 h-32 bg-white/5 rounded-full animate-float" style="animation-delay: -2s;"></div>
+            <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-white/10 rounded-full animate-float" style="animation-delay: -4s;"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 text-center text-black relative z-10">
+            <div class="animate-pulse-slow mb-6 sm:mb-8">
+                <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 leading-tight px-2 font-hk">
+                    Building Smart Software,
+                    <span class="block bg-gradient-to-r from-blue-200 to-purple-600 bg-clip-text text-transparent">
+                        One Solution at a Time
+                    </span>
+                </h1>
+            </div>
+
+            <p class="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto opacity-90 px-4 font-hk font-medium">
+                We transform ideas into scalable software solutions that empower businesses to thrive in the digital era.
+            </p>
+
+            <!-- Code Animation -->
+            <div class="mb-8 sm:mb-12 p-3 sm:p-4 bg-black/20 rounded-lg max-w-xs sm:max-w-2xl mx-auto glass-effect">
+                <div class="code-animation text-green-300 text-left text-xs sm:text-sm md:text-base">
+                    <span id="typing-text"></span>
+                    <span class="animate-pulse">|</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center px-4 sm:px-0">
+                <button class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-sm sm:text-base">
+                    Explore Our Projects
+                </button>
+                <button class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 text-sm sm:text-base">
+                    View Docs
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Company Intro -->
+    <section id="about" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 px-4 font-hk">Who We Are</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6 sm:mb-8"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                <div class="px-4 sm:px-0">
+                    <p class="text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed font-hk">
+                        LazyDeveloper Teched Pvt Ltd is a technology-driven company specializing in building innovative, scalable, and robust digital solutions. Our expertise spans across Web Development, Mobile Apps, SaaS Platforms, and Custom Software tailored to meet client-specific
+                        needs.
+                    </p>
+
+                    <div class="space-y-4 sm:space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 sm:mr-4 mt-1">
+                                <span class="text-green-600 text-sm">✅</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg font-hk">Modern Tech Stacks</h3>
+                                <p class="text-gray-600 text-sm sm:text-base font-hk">React, Node.js, PHP, Python, AWS, Firebase</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 sm:mr-4 mt-1">
+                                <span class="text-green-600 text-sm">✅</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg font-hk">Diverse Experience</h3>
+                                <p class="text-gray-600 text-sm sm:text-base font-hk">CRM, IMS, SaaS products, and E-commerce</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 sm:mr-4 mt-1">
+                                <span class="text-green-600 text-sm">✅</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1 sm:mb-2 text-base sm:text-lg font-hk">Quality Focus</h3>
+                                <p class="text-gray-600 text-sm sm:text-base font-hk">Scalability, performance, and user experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative px-4 sm:px-0 mt-8 lg:mt-0">
+                    <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white transform rotate-1 sm:rotate-3 shadow-2xl">
+                        <div class="bg-white/10 rounded-xl p-4 sm:p-6 backdrop-blur-sm">
+                            <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 font-hk">Our Mission</h3>
+                            <p class="text-base sm:text-lg opacity-90 font-hk">
+                                Empowering businesses through innovative technology solutions that drive growth and efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Navigation Cards -->
+    <section class="py-16 sm:py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+
+                <!-- Docs -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
+                        <!-- Book Icon -->
+                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-6-6h12"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">Docs</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Technical resources, API documentation, and guides.</p>
+                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">Learn More →</a>
+                </div>
+
+                <!-- Projects -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
+                        <!-- Laptop Icon -->
+                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17h4.5m-6-8h7.5M4.5 21h15a2.25 2.25 0 002.25-2.25v-11.25A2.25 2.25 0 0019.5 5.25H4.5A2.25 2.25 0 002.25 7.5v11.25A2.25 2.25 0 004.5 21z"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">Projects</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Explore our case studies and solutions.</p>
+                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">View Projects →</a>
+                </div>
+
+                <!-- GitHub -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
+                        <!-- GitHub Icon -->
+                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.23c-3.338.726-4.033-1.61-4.033-1.61-.546-1.385-1.333-1.753-1.333-1.753-1.09-.744.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.835 2.807 1.305 3.492.997.108-.775.418-1.305.76-1.605-2.665-.303-5.467-1.335-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.323 3.3 1.23a11.52 11.52 0 016 0c2.29-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.12 3.176.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.625-5.48 5.922.43.372.813 1.104.813 2.228v3.303c0 .32.218.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.373-12-12-12z"/>
+                    </svg>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">GitHub</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Open-source contributions and code samples.</p>
+                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">Visit GitHub →</a>
+                </div>
+
+                <!-- Blog -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
+                        <!-- Pen Icon -->
+                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">Blog</h3>
+                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Insights, tutorials, and company updates.</p>
+                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">Read Blog →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Services -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What We Build</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Web Applications -->
+                <div class="text-center group">
+                    <!-- Globe Icon -->
+                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 0v20m0-10h10M2 12h10"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Web Applications</h3>
+                    <p class="text-gray-600">High-performance and user-friendly web platforms.</p>
+                </div>
+
+                <!-- Mobile Apps -->
+                <div class="text-center group">
+                    <!-- Mobile Icon -->
+                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12" y2="18"></line>
+                    </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Mobile Apps</h3>
+                    <p class="text-gray-600">Android & iOS apps with seamless experiences.</p>
+                </div>
+
+                <!-- SaaS Products -->
+                <div class="text-center group">
+                    <!-- Cloud Icon -->
+                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 014-4h1a4 4 0 018 0h1a3 3 0 010 6H7a3 3 0 01-4-4z"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">SaaS Products</h3>
+                    <p class="text-gray-600">Scalable cloud solutions with subscription models.</p>
+                </div>
+
+                <!-- Custom Software -->
+                <div class="text-center group">
+                    <!-- Gear Icon -->
+                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm6.4 1.6l1.8-1.8-2.8-2.8-1.8 1.8a7.963 7.963 0 00-2.2-.5V2h-4v2.3c-.8.1-1.5.3-2.2.5L5.6 2.8 2.8 5.6l1.8 1.8c-.2.7-.4 1.4-.5 2.2H2v4h2.3c.1.8.3 1.5.5 2.2l-1.8 1.8 2.8 2.8 1.8-1.8c.7.2 1.4.4 2.2.5V22h4v-2.3c.8-.1 1.5-.3 2.2-.5l1.8 1.8 2.8-2.8-1.8-1.8c.2-.7.4-1.4.5-2.2H22v-4h-2.3c-.1-.8-.3-1.5-.5-2.2z"></path>
+                    </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Custom Software</h3>
+                    <p class="text-gray-600">Tailored solutions for enterprises & startups.</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                View All Services →
+            </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Trusted By Teams & Communities</h2>
+            <p class="text-xl text-gray-700 mb-12 max-w-3xl mx-auto">
+                From startups to established enterprises, we've helped businesses streamline operations and innovate with technology.
+            </p>
+
+            <!-- Placeholder for client logos -->
+            <div class="flex justify-center items-center space-x-8 opacity-60">
+                <div class="w-32 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-600 font-semibold">Client 1</span>
+                </div>
+                <div class="w-32 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-600 font-semibold">Client 2</span>
+                </div>
+                <div class="w-32 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-600 font-semibold">GDG</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Something Amazing?</h2>
+            <p class="text-xl mb-8 opacity-90">
+                Let's collaborate to transform your ideas into impactful digital solutions.
+            </p>
+            <button class="px-12 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg">
+                Contact Us →
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-300 text-black py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <a href="/index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-20 sm:h-22">
+                    </a>
+                    <p class="text-gray-600">
+                        Building smart software solutions for the<br>digital future.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-600 hover:text-white transition-colors">Home</a>
+                        <a href="#about" class="block text-gray-600 hover:text-white transition-colors">About</a>
+                        <a href="#services" class="block text-gray-600 hover:text-white transition-colors">Services</a>
+                        <a href="#projects" class="block text-gray-600 hover:text-white transition-colors">Projects</a>
+                        <a href="#contact" class="block text-gray-600 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-[25px]"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-white transition-colors">
+                            <i class="fab fa-github text-[25px]"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-[25px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-400">
+                <p>&copy; 2025 LazyDeveloper Teched Pvt Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        function toggleMobileMenu() {
+            const isActive = mobileMenu.classList.contains('active');
+
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.remove('hidden');
+            mobileMenuButton.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.add('hidden');
+            mobileMenuButton.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on menu links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if opened
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Typing animation for hero section
+        const texts = [
+            "const solution = createInnovation();",
+            "function buildFuture() { return success; }",
+            "// Transforming ideas into reality",
+            "npm install awesome-solutions",
+            "git commit -m 'Building tomorrow'"
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+
+        function typeWriter() {
+            const typingElement = document.getElementById('typing-text');
+
+            if (isDeleting) {
+                currentText = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentText = texts[textIndex].substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            typingElement.textContent = currentText;
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === texts[textIndex].length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        typeWriter();
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white/90');
+            } else {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white/95');
+            }
+        });
+    </script>
+</body>
+
+</html>

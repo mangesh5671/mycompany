@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazyDeveloper Teched Pvt. Ltd.</title>
+    <link rel="icon" href="img/logo_main.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=HK+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['HK Grotesk', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                        'hk': ['HK Grotesk', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'slideDown': 'slideDown 0.3s ease-out',
+                        'slideUp': 'slideUp 0.3s ease-in',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            }
+                        },
+                        gradient: {
+                            '0%, 100%': {
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        slideDown: {
+                            '0%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            },
+                            '100%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            },
+                            '100%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #464547, #000000);
+            background-size: 400% 400%;
+            animation: gradient 25s ease infinite;
+        }
+        
+        .code-animation {
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            font-family: 'HK Grotesk', sans-serif;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        /* Services header styles */
+        
+        .services-header {
+            text-align: center;
+            position: relative;
+            padding: 2.5rem 0 4rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .services-header::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 1;
+        }
+        
+        .services-header h2 {
+            position: relative;
+            z-index: 2;
+            font-size: 3rem;
+            font-weight: 500;
+            margin: 0;
+            color: #1d1d1f;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        .services-header p {
+            position: relative;
+            z-index: 2;
+            font-size: 1.25rem;
+            color: #555;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            padding: 0 1rem;
+        }
+        /* Services styles - completely revised */
+        
+        .services_container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-image-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .service-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image-container img {
+            transform: scale(1.05);
+        }
+        
+        .service-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.7;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-badge {
+            background: rgba(45, 55, 72, 0.05);
+            color: #4a5568;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+            color: #2d3748;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .service-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3182ce, #63b3ed);
+            border-radius: 3px;
+        }
+        
+        .service-features {
+            margin: 0 0 1.5rem;
+            padding: 0;
+            list-style: none;
+            flex-grow: 1;
+        }
+        
+        .service-features li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #4a5568;
+        }
+        
+        .service-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #4299e1;
+        }
+        
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            color: #052bc4;
+            font-weight: 600;
+            text-decoration: none;
+            padding-top: 0.5rem;
+            border-top: 1px solid #edf2f7;
+            margin-top: auto;
+            transition: color 0.2s ease;
+        }
+        
+        .service-link:hover {
+            color: #2c5282;
+        }
+        
+        .service-link i {
+            margin-left: 0.5rem;
+            font-size: 0.875rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .service-link:hover i {
+            transform: translateX(3px);
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            .services-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .services-header {
+                padding: 2rem 0 3rem;
+            }
+            .services-header h2 {
+                font-size: 2rem;
+            }
+            .services-header p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .service-image-container {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-10 sm:h-12">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+                    <a href="services.html" class="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
+                    <!-- Dropdown for Our Branches -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-1">
+            Our Branches
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+                        <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
+                            <a href="nashik.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nashik</a>
+                            <a href="nagpur.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nagpur</a>
+                            <a href="mumbai.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mumbai</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+
+
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 hamburger">
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line1 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line2 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line3"></div>
+      </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 right-0 w-64 h-screen bg-white shadow-2xl z-40 overflow-y-auto">
+            <div class="flex flex-col p-6 space-y-6">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Home</a>
+                <a href="about.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">About</a>
+                <a href="services.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Services</a>
+                <!-- Mobile Dropdown -->
+                <div>
+                    <button id="branches-toggle" class="w-full flex justify-between items-center text-gray-700 hover:text-blue-600 text-lg font-medium">
+          Our Branches
+          <svg class="w-5 h-5 transition-transform" id="branches-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+                    <div id="branches-submenu" class="hidden flex-col ml-4 mt-2 space-y-2">
+                        <a href="nashik.html" class="text-gray-600 hover:text-blue-600">Nashik</a>
+                        <a href="nagpur.html" class="text-gray-600 hover:text-blue-600">Nagpur</a>
+                        <a href="mumbai.html" class="text-gray-600 hover:text-blue-600">Mumbai</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Contact</a>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+    </nav>
+
+    <!-- Script for Mobile Dropdown -->
+    <script>
+        document.getElementById("branches-toggle").addEventListener("click", function() {
+            const submenu = document.getElementById("branches-submenu");
+            const icon = document.getElementById("branches-icon");
+            submenu.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+        });
+    </script>
+
+
+
+
+    <!-- Services Header Section -->
+    <div class="services-header">
+        <h2>Our Services</h2>
+        <p>Innovative digital solutions tailored to transform your business</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="services_container" role="main">
+        <div class="services-grid">
+            <!-- Web Development Card -->
+            <div class="service-card">
+                <div class="service-image-container">
+                    <img src="img/web-development.png" alt="Web Development" />
+                    <div class="service-image-overlay"></div>
+                </div>
+                <div class="service-content">
+                    <span class="service-badge">Popular</span>
+                    <h3 class="service-title">Web Development</h3>
+                    <ul class="service-features">
+                        <li>Business & Portfolio Websites</li>
+                        <li>Educational Portals</li>
+                        <li>Restaurant & Hotel Booking Sites</li>
+                        <li>Inventory & ERP Systems</li>
+                    </ul>
+                    <a href="contact.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Mobile App Development Card -->
+            <div class="service-card">
+                <div class="service-image-container">
+                    <img src="img/mobile dev.png" alt="Mobile App Development" />
+                    <div class="service-image-overlay"></div>
+                </div>
+                <div class="service-content">
+                    <span class="service-badge">Featured</span>
+                    <h3 class="service-title">Mobile App Development</h3>
+                    <ul class="service-features">
+                        <li>Android & iOS Apps</li>
+                        <li>React Native / Flutter-Based solutions</li>
+                        <li>Custom UI/UX Design</li>
+                        <li>App Store Optimization</li>
+                    </ul>
+                    <a href="contact.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- CRM / ERP Development Card -->
+            <div class="service-card">
+                <div class="service-image-container">
+                    <img src="img/erp-crm.png" alt="CRM / ERP Development" />
+                    <div class="service-image-overlay"></div>
+                </div>
+                <div class="service-content">
+                    <span class="service-badge">Enterprise</span>
+                    <h3 class="service-title">CRM / ERP Development</h3>
+                    <ul class="service-features">
+                        <li>Custom Client Relationship Management</li>
+                        <li>Enterprise Resource Planning</li>
+                        <li>Business Process Automation</li>
+                        <li>Data Analytics & Reporting</li>
+                    </ul>
+                    <a href="contact.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- E-Commerce Development Card -->
+            <div class="service-card">
+                <div class="service-image-container">
+                    <img src="img/ecommerce dev_prev_ui.png" alt="E-Commerce Development" />
+                    <div class="service-image-overlay"></div>
+                </div>
+                <div class="service-content">
+                    <span class="service-badge">Growth</span>
+                    <h3 class="service-title">E-Commerce Development</h3>
+                    <ul class="service-features">
+                        <li>Custom Online Stores</li>
+                        <li>Payment Gateway Integration</li>
+                        <li>Amazon & Flipkart API connectivity</li>
+                        <li>Inventory Management</li>
+                    </ul>
+                    <a href="contact.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- SaaS Product Development Card -->
+            <div class="service-card">
+                <div class="service-image-container">
+                    <img src="img/SaaS-Development-side-image.webp" alt="SaaS Product Development" />
+                    <div class="service-image-overlay"></div>
+                </div>
+                <div class="service-content">
+                    <span class="service-badge">Startup</span>
+                    <h3 class="service-title">SaaS Product Development</h3>
+                    <ul class="service-features">
+                        <li>Scalable web applications</li>
+                        <li>Subscription & billing systems</li>
+                        <li>Multi-tenant architecture</li>
+                        <li>User analytics & dashboards</li>
+                    </ul>
+                    <a href="contact.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- WhatsApp Business API Integration Card -->
+            <div class="service-card">
+                <div class="service-image-container">
+                    <img src="img/what-bissness.png" alt="WhatsApp Business API Integration" />
+                    <div class="service-image-overlay"></div>
+                </div>
+                <div class="service-content">
+                    <span class="service-badge">Integration</span>
+                    <h3 class="service-title">WhatsApp Business API</h3>
+                    <ul class="service-features">
+                        <li>Business messaging automation</li>
+                        <li>Appointment booking systems</li>
+                        <li>Order status notifications</li>
+                        <li>Customer support integration</li>
+                    </ul>
+                    <a href="contact.html" class="service-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Something Amazing?</h2>
+            <p class="text-xl mb-8 opacity-90">
+                Let's collaborate to transform your ideas into impactful digital solutions.
+            </p>
+            <a href="contact.html" class="px-12 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg inline-block text-center">
+                Contact Us →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-black py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <a href="/index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-20 sm:h-22">
+                    </a>
+                    <p class="text-gray-600">
+                        Building smart software solutions for the<br>digital future.<br><br>
+                    </p>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/lazydeveloper-teched-167727301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-linkedin text-[25px]"></i>
+                        </a>
+                        <a href="https://github.com/yourusername" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-github text-[25px]"></i>
+                        </a>
+                        <a href="https://twitter.com/yourhandle" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-twitter text-[25px]"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thelazy.developer?igsh=MXM4ZWt6OW41cngyaA==" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-instagram text-[25px]"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1FLaZ2ooBV/" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-facebook text-[25px]"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-600 hover:text-black transition-colors">Home</a>
+                        <a href="about.html" class="block text-gray-600 hover:text-black transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-600 hover:text-black transition-colors">Services</a>
+                        <a href="contact.html" class="block text-gray-600 hover:text-black transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Us</h4>
+                    <p class="text-gray-600 flex items-center gap-2">
+                        <i class="fas fa-envelope text-black"></i>
+                        <a href="mailto:lazydeveloper8@gmail.com" class="hover:text-black">lazydeveloper8@gmail.com</a>
+                    </p>
+
+                    <p class="text-gray-600 flex items-center gap-2 mt-2">
+                        <i class="fas fa-phone text-black"></i>
+                        <a href="tel:+919356035139" class="hover:text-black">+91 93560 35139</a>
+                    </p>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Head Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            Sector-6, Shantinagar, Mira Road (E),<br> Thane - 401107, Maharashtra, India
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Nashik Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            3rd Floor, Nexus Point, College Road,<br> Nashik - 422005, Maharashtra, India
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-900">
+                <p>&copy; 2025 LazyDeveloper Teched Pvt Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        function toggleMobileMenu() {
+            const isActive = mobileMenu.classList.contains('active');
+
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.remove('hidden');
+            mobileMenuButton.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.add('hidden');
+            mobileMenuButton.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on menu links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if opened
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Typing animation for hero section
+        const texts = [
+            "const solution = createInnovation();",
+            "function buildFuture() { return success; }",
+            "// Transforming ideas into reality",
+            "npm install awesome-solutions",
+            "git commit -m 'Building tomorrow'"
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+
+        function typeWriter() {
+            const typingElement = document.getElementById('typing-text');
+
+            if (isDeleting) {
+                currentText = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentText = texts[textIndex].substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            typingElement.textContent = currentText;
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === texts[textIndex].length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        typeWriter();
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white/90');
+            } else {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white/95');
+            }
+        });
+    </script>
+</body>
+
+</html>
