@@ -114,6 +114,132 @@
         .hamburger.active .line3 {
             transform: rotate(-45deg) translate(7px, -6px);
         }
+        
+        .client-card {
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            height: 340px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .client-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tag {
+            background: #1f2937;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo-space {
+            width: 80px;
+            height: 60px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .logo-space img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+        
+        .client-card:hover .logo-space {
+            border-color: #1f2937;
+            background: #f1f5f9;
+        }
+        
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .slider-container {
+            overflow: hidden;
+            position: relative;
+            cursor: grab;
+        }
+        
+        .slider-container:active {
+            cursor: grabbing;
+        }
+        
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        /* Responsive card widths */
+        
+        @media (max-width: 599px) {
+            .client-card {
+                width: calc(100% - 2rem);
+                margin-right: 1rem;
+            }
+        }
+        
+        @media (min-width: 600px) and (max-width: 899px) {
+            .client-card {
+                width: calc(50% - 1rem);
+                margin-right: 1rem;
+            }
+        }
+        
+        @media (min-width: 900px) and (max-width: 1199px) {
+            .client-card {
+                width: calc(33.333% - 1rem);
+                margin-right: 1rem;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .client-card {
+                width: calc(25% - 1rem);
+                margin-right: 1rem;
+            }
+        }
+        
+        .nav-button {
+            display: none;
+        }
+        
+        .dots-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2rem;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d5db;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #1f2937;
+            transform: scale(1.2);
+        }
     </style>
 </head>
 
@@ -123,7 +249,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <a href="/">
+                    <a href="index.html">
                         <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-10 sm:h-12">
                     </a>
                 </div>
@@ -317,170 +443,391 @@
     </section>
 
 
-    <!-- Quick Navigation Cards -->
-    <section class="py-16 sm:py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
 
-                <!-- Docs -->
-                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
-                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
-                        <!-- Book Icon -->
-                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-6-6h12"></path>
-                    </svg>
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">Docs</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Technical resources, API documentation, and guides.</p>
-                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">Learn More →</a>
-                </div>
-
-                <!-- Projects -->
-                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
-                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
-                        <!-- Laptop Icon -->
-                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17h4.5m-6-8h7.5M4.5 21h15a2.25 2.25 0 002.25-2.25v-11.25A2.25 2.25 0 0019.5 5.25H4.5A2.25 2.25 0 002.25 7.5v11.25A2.25 2.25 0 004.5 21z"></path>
-                    </svg>
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">Projects</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Explore our case studies and solutions.</p>
-                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">View Projects →</a>
-                </div>
-
-                <!-- GitHub -->
-                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
-                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
-                        <!-- GitHub Icon -->
-                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.577v-2.23c-3.338.726-4.033-1.61-4.033-1.61-.546-1.385-1.333-1.753-1.333-1.753-1.09-.744.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.835 2.807 1.305 3.492.997.108-.775.418-1.305.76-1.605-2.665-.303-5.467-1.335-5.467-5.93 0-1.31.467-2.38 1.235-3.22-.123-.303-.535-1.523.117-3.176 0 0 1.008-.323 3.3 1.23a11.52 11.52 0 016 0c2.29-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.12 3.176.77.84 1.234 1.91 1.234 3.22 0 4.61-2.807 5.625-5.48 5.922.43.372.813 1.104.813 2.228v3.303c0 .32.218.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.373-12-12-12z"/>
-                    </svg>
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">GitHub</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Open-source contributions and code samples.</p>
-                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">Visit GitHub →</a>
-                </div>
-
-                <!-- Blog -->
-                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 group">
-                    <div class="mb-3 sm:mb-4 text-center sm:text-left">
-                        <!-- Pen Icon -->
-                        <svg class="w-12 h-12 mx-auto sm:mx-0 group-hover:scale-110 transition-transform text-gray-900" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z"></path>
-                    </svg>
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center sm:text-left">Blog</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base text-center sm:text-left">Insights, tutorials, and company updates.</p>
-                    <a href="#" class="text-blue-600 font-semibold hover:text-blue-800 block text-center sm:text-left">Read Blog →</a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Services -->
+    <!-- ===== Featured Services ===== -->
     <section id="services" class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Heading -->
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What We Build</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">What We Build</h2>
+                <div class="w-24 h-1 mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <!-- Web Applications -->
-                <div class="text-center group">
-                    <!-- Globe Icon -->
-                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
-                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 0v20m0-10h10M2 12h10"></path>
-                    </svg>
+            <!-- Cards -->
+            <div class="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <!-- Item -->
+                <article class="group h-full">
+                    <div class="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                        <div class="mb-6 flex items-center justify-center">
+                            <!-- Globe -->
+                            <svg class="w-12 h-12 text-gray-900 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 100 20 10 10 0 000-20m0 0v20M2 12h20" />
+            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 text-center">Web Applications</h3>
+                        <p class="text-gray-600 text-center">High-performance and user-friendly web platforms.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Web Applications</h3>
-                    <p class="text-gray-600">High-performance and user-friendly web platforms.</p>
-                </div>
+                </article>
 
-                <!-- Mobile Apps -->
-                <div class="text-center group">
-                    <!-- Mobile Icon -->
-                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
-                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>
-                        <line x1="12" y1="18" x2="12" y2="18"></line>
-                    </svg>
+                <article class="group h-full">
+                    <div class="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                        <div class="mb-6 flex items-center justify-center">
+                            <!-- Mobile -->
+                            <svg class="w-12 h-12 text-gray-900 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="7" y="2" width="10" height="20" rx="2" />
+              <line x1="12" y1="18" x2="12" y2="18" />
+            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 text-center">Mobile Apps</h3>
+                        <p class="text-gray-600 text-center">Android & iOS apps with seamless experiences.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Mobile Apps</h3>
-                    <p class="text-gray-600">Android & iOS apps with seamless experiences.</p>
-                </div>
+                </article>
 
-                <!-- SaaS Products -->
-                <div class="text-center group">
-                    <!-- Cloud Icon -->
-                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
-                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 014-4h1a4 4 0 018 0h1a3 3 0 010 6H7a3 3 0 01-4-4z"></path>
-                    </svg>
+                <article class="group h-full">
+                    <div class="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                        <div class="mb-6 flex items-center justify-center">
+                            <!-- Cloud -->
+                            <svg class="w-12 h-12 text-gray-900 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 014-4h1a4 4 0 018 0h1a3 3 0 010 6H7a3 3 0 01-4-2z" />
+            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 text-center">SaaS Products</h3>
+                        <p class="text-gray-600 text-center">Scalable cloud solutions with subscription models.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">SaaS Products</h3>
-                    <p class="text-gray-600">Scalable cloud solutions with subscription models.</p>
-                </div>
+                </article>
 
-                <!-- Custom Software -->
-                <div class="text-center group">
-                    <!-- Gear Icon -->
-                    <div class="mb-6 text-gray-900 group-hover:scale-110 transition-transform">
-                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm6.4 1.6l1.8-1.8-2.8-2.8-1.8 1.8a7.963 7.963 0 00-2.2-.5V2h-4v2.3c-.8.1-1.5.3-2.2.5L5.6 2.8 2.8 5.6l1.8 1.8c-.2.7-.4 1.4-.5 2.2H2v4h2.3c.1.8.3 1.5.5 2.2l-1.8 1.8 2.8 2.8 1.8-1.8c.7.2 1.4.4 2.2.5V22h4v-2.3c.8-.1 1.5-.3 2.2-.5l1.8 1.8 2.8-2.8-1.8-1.8c.2-.7.4-1.4.5-2.2H22v-4h-2.3c-.1-.8-.3-1.5-.5-2.2z"></path>
-                    </svg>
+                <article class="group h-full">
+                    <div class="h-full rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                        <div class="mb-6 flex items-center justify-center">
+                            <!-- Gear -->
+                            <svg class="w-12 h-12 text-gray-900 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8a4 4 0 100 8 4 4 0 000-8m6.4 1.6l1.8-1.8-2.8-2.8-1.8 1.8a8 8 0 00-2.2-.5V2h-4v2.3c-.8.1-1.5.3-2.2.5L5.6 2.8 2.8 5.6l1.8 1.8c-.2.7-.4 1.4-.5 2.2H2v4h2.3c.1.8.3 1.5.5 2.2l-1.8 1.8 2.8 2.8 1.8-1.8c.7.2 1.4.4 2.2.5V22h4v-2.3c.8-.1 1.5-.3 2.2-.5l1.8 1.8 2.8-2.8-1.8-1.8c.2-.7.4-1.4.5-2.2H22v-4h-2.3c-.1-.8-.3-1.5-.5-2.2z" />
+            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 text-center">Custom Software</h3>
+                        <p class="text-gray-600 text-center">Tailored solutions for enterprises & startups.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Custom Software</h3>
-                    <p class="text-gray-600">Tailored solutions for enterprises & startups.</p>
-                </div>
+                </article>
             </div>
 
-            <div class="text-center">
-                <a href="services.html" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg inline-block">
-                            View All Services →
-                </a>
+            <!-- CTA -->
+            <div class="text-center mt-12">
+                <a href="services.html" class="inline-block rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:scale-105">
+        View All Services →
+      </a>
             </div>
         </div>
     </section>
 
-    <!-- Trust Section -->
+    <!-- ===== Trust Section ===== -->
     <section class="py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">Trusted By Teams & Communities</h2>
-            <p class="text-xl text-gray-700 mb-12 max-w-3xl mx-auto">
-                From startups to established enterprises, we've helped businesses streamline operations and innovate with technology.
-            </p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Heading -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Trusted By Teams & Communities</h2>
+                <p class="mx-auto max-w-3xl text-xl text-gray-700">From startups to enterprises, we streamline operations and spark innovation.</p>
+            </div>
 
-            <!-- Placeholder for client logos -->
-            <div class="flex justify-center items-center space-x-8 opacity-60">
-                <div class="w-32 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
-                    <span class="text-gray-600 font-semibold">Client 1</span>
+            <!-- Slider -->
+            <div class="relative">
+                <!-- Track (scroll-snap) -->
+                <div id="clientTrack" class="scroll-smooth snap-x snap-mandatory overflow-x-auto overflow-y-visible no-scrollbar -mx-4 px-4">
+                    <div class="flex gap-6 pb-2">
+                        <!-- Card (repeat) -->
+                        <article class="snap-start shrink-0 basis-[88%] sm:basis-[55%] md:basis-[45%] lg:basis-[32%] xl:basis-[24%]">
+                            <div class="h-full rounded-2xl border border-gray-100 bg-white p-6 md:p-8 shadow-xl">
+                                <div class="mb-6 flex h-14 items-center">
+                                    <img src="img/akashic production.png" alt="Akashic Productions Logo" class="h-10 object-contain" />
+                                </div>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <h3 class="text-lg font-bold text-gray-900">Akashic Productions</h3>
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">Media</span>
+                                </div>
+                                <p class="text-sm leading-relaxed text-gray-600">
+                                    Creative media agency known for powerful storytelling. We built an elegant portfolio that positions them as leaders in visual narratives.
+                                </p>
+                                <div class="mt-6 border-t border-gray-100 pt-4 flex items-center justify-between">
+
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">Website & Branding</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="snap-start shrink-0 basis-[88%] sm:basis-[55%] md:basis-[45%] lg:basis-[32%] xl:basis-[24%]">
+                            <div class="h-full rounded-2xl border border-gray-100 bg-white p-6 md:p-8 shadow-xl">
+                                <div class="mb-6 flex h-14 items-center">
+                                    <img src="img/karmaveeer.png" alt="Karmveer Amruttulya Logo" class="h-10 object-contain" />
+                                </div>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <h3 class="text-lg font-bold text-gray-900">Karmveer Amruttulya</h3>
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">F&amp;B</span>
+                                </div>
+                                <p class="text-sm leading-relaxed text-gray-600">
+                                    Rapidly growing tea brand with 120+ outlets. We delivered their platform with brand story, outlet discovery & franchise flow.
+                                </p>
+                                <div class="mt-6 border-t border-gray-100 pt-4 flex items-center justify-between">
+
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">Website Development</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="snap-start shrink-0 basis-[88%] sm:basis-[55%] md:basis-[45%] lg:basis-[32%] xl:basis-[24%]">
+                            <div class="h-full rounded-2xl border border-gray-100 bg-white p-6 md:p-8 shadow-xl">
+                                <div class="mb-6 flex h-14 items-center">
+                                    <img src="img/Distinguished society.jpg" alt="Distinguished Society Logo" class="h-10 object-contain" />
+                                </div>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <h3 class="text-lg font-bold text-gray-900">Distinguished Society</h3>
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">Fashion</span>
+                                </div>
+                                <p class="text-sm leading-relaxed text-gray-600">
+                                    The brand celebrates visionary wearable art, limited-edition drops, global reach. We powered the commerce backbone.
+                                </p>
+                                <div class="mt-6 border-t border-gray-100 pt-4 flex items-center justify-between">
+
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">E-commerce Platform</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="snap-start shrink-0 basis-[88%] sm:basis-[55%] md:basis-[45%] lg:basis-[32%] xl:basis-[24%]">
+                            <div class="h-full rounded-2xl border border-gray-100 bg-white p-6 md:p-8 shadow-xl">
+                                <div class="mb-6 flex h-14 items-center">
+                                    <img src="img/Bhuchandra_logo_.png" alt="Bhuchandra Foundation Logo" class="h-10 object-contain" />
+                                </div>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <h3 class="text-lg font-bold text-gray-900">Bhuchandra Foundation</h3>
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">NGO</span>
+                                </div>
+                                <p class="text-sm leading-relaxed text-gray-600">
+                                    Education & empowerment non-profit. We digitized operations with website + CRM for engagement & donations.
+                                </p>
+                                <div class="mt-6 border-t border-gray-100 pt-4 flex items-center justify-between">
+
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">Website + CRM</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="snap-start shrink-0 basis-[88%] sm:basis-[55%] md:basis-[45%] lg:basis-[32%] xl:basis-[24%]">
+                            <div class="h-full rounded-2xl border border-gray-100 bg-white p-6 md:p-8 shadow-xl">
+                                <div class="mb-6 flex h-14 items-center">
+                                    <img src="img/xrone.png" alt="Xrone Tech Logo" class="h-10 object-contain" />
+                                </div>
+                                <div class="mb-4 flex items-center justify-between">
+                                    <h3 class="text-lg font-bold text-gray-900">Xrone Tech</h3>
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">AgriTech</span>
+                                </div>
+                                <p class="text-sm leading-relaxed text-gray-600">
+                                    Drone-powered agri solutions. We built their website, CRM & field ops mobile app—end-to-end ecosystem.
+                                </p>
+                                <div class="mt-6 border-t border-gray-100 pt-4 flex items-center justify-between">
+
+                                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-900">Full Digital Suite</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
-                <div class="w-32 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
-                    <span class="text-gray-600 font-semibold">Client 2</span>
+
+                <!-- Arrows
+                <button id="prevBtn" aria-label="Previous" class="absolute left-0 top-1/2 -translate-y-1/2 rounded-full bg-white p-3 shadow-lg border border-gray-100 hidden sm:flex hover:scale-105 transition">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+                <button id="nextBtn" aria-label="Next" class="absolute right-0 top-1/2 -translate-y-1/2 rounded-full bg-white p-3 shadow-lg border border-gray-100 hidden sm:flex hover:scale-105 transition">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button> -->
+
+                <!-- Dots -->
+                <div id="dots" class="mt-6 flex items-center justify-center gap-2"></div>
+            </div>
+
+            <!-- Impact Stats -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="rounded-xl border border-gray-100 bg-white p-6 text-center shadow-lg">
+                    <div class="text-3xl font-bold text-gray-900">50+</div>
+                    <div class="mt-1 text-gray-600 font-semibold">Successful Projects</div>
                 </div>
-                <div class="w-32 h-16 bg-gray-300 rounded-lg flex items-center justify-center">
-                    <span class="text-gray-600 font-semibold">GDG</span>
+                <div class="rounded-xl border border-gray-100 bg-white p-6 text-center shadow-lg">
+                    <div class="text-3xl font-bold text-gray-900">120+</div>
+                    <div class="mt-1 text-gray-600 font-semibold">Outlets Supported</div>
+                </div>
+                <div class="rounded-xl border border-gray-100 bg-white p-6 text-center shadow-lg">
+                    <div class="text-3xl font-bold text-gray-900">6+</div>
+                    <div class="mt-1 text-gray-600 font-semibold">Cities Reached</div>
+                </div>
+                <div class="rounded-xl border border-gray-100 bg-white p-6 text-center shadow-lg">
+                    <div class="text-3xl font-bold text-gray-900">100%</div>
+                    <div class="mt-1 text-gray-600 font-semibold">Client Satisfaction</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- ===== CTA ===== -->
     <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Something Amazing?</h2>
-            <p class="text-xl mb-8 opacity-90">
-                Let's collaborate to transform your ideas into impactful digital solutions.
-            </p>
-            <a href="contact.html" class="px-12 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg inline-block text-center">
-                Contact Us →
-            </a>
+            <p class="text-xl mb-8 opacity-90">Let's collaborate to transform your ideas into impactful digital solutions.</p>
+            <a href="contact.html" class="inline-block rounded-full bg-white px-12 py-4 text-lg font-semibold text-gray-900 shadow-lg transition-all duration-300 hover:bg-gray-100 hover:scale-105">
+      Contact Us →
+    </a>
         </div>
     </section>
+
+    <!-- ===== Utilities ===== -->
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <!-- ===== Slider Logic (lightweight, smooth) ===== -->
+    <script>
+        (function() {
+            const track = document.getElementById('clientTrack');
+            const container = track ? .firstElementChild; // flex wrapper
+            const cards = [...container ? .children || []];
+            const dotsEl = document.getElementById('dots');
+            const prev = document.getElementById('prevBtn');
+            const next = document.getElementById('nextBtn');
+
+            if (!track || cards.length === 0) return;
+
+            // Build dots based on "pages" (one card per snap in this layout)
+            function buildDots() {
+                dotsEl.innerHTML = '';
+                cards.forEach((_, i) => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'h-2.5 w-2.5 rounded-full bg-gray-300 transition-all';
+                    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    b.addEventListener('click', () => scrollToIndex(i));
+                    dotsEl.appendChild(b);
+                });
+            }
+
+            function currentIndex() {
+                // Find the closest card to left edge
+                const left = track.scrollLeft;
+                let minDist = Infinity,
+                    idx = 0;
+                cards.forEach((card, i) => {
+                    const dist = Math.abs(card.offsetLeft - left);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        idx = i;
+                    }
+                });
+                return idx;
+            }
+
+            function scrollToIndex(i) {
+                const clamped = Math.max(0, Math.min(i, cards.length - 1));
+                cards[clamped].scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'start'
+                });
+                setActiveDot(clamped);
+                restartAuto();
+            }
+
+            function step(dir) {
+                const idx = currentIndex();
+                scrollToIndex(idx + dir);
+            }
+
+            function setActiveDot(i) {
+                [...dotsEl.children].forEach((d, j) => {
+                    d.classList.toggle('bg-gray-900', i === j);
+                    d.classList.toggle('bg-gray-300', i !== j);
+                    d.style.width = i === j ? '16px' : '10px';
+                    d.style.borderRadius = i === j ? '9999px' : '9999px';
+                });
+            }
+
+            // Observe slides to sync dots while user scrolls manually
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting && Math.abs(e.intersectionRect.left - e.boundingClientRect.left) < 4) {
+                        const i = cards.indexOf(e.target);
+                        if (i >= 0) setActiveDot(i);
+                    }
+                });
+            }, {
+                root: track,
+                threshold: 0.6
+            });
+
+            // Init
+            buildDots();
+            cards.forEach(c => io.observe(c));
+            setActiveDot(0);
+
+            // Arrows
+            prev ? .addEventListener('click', () => step(-1));
+            next ? .addEventListener('click', () => step(1));
+
+            // Keyboard support when focused
+            track.setAttribute('tabindex', '0');
+            track.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    step(1);
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    step(-1);
+                }
+            });
+
+            // Autoplay (pause on hover or user interaction)
+            let timer;
+
+            function startAuto() {
+                stopAuto();
+                timer = setInterval(() => step(1), 4500);
+            }
+
+            function stopAuto() {
+                if (timer) clearInterval(timer);
+            }
+
+            function restartAuto() {
+                stopAuto();
+                setTimeout(startAuto, 2000);
+            }
+            startAuto();
+
+            ['mouseenter', 'touchstart', 'focusin', 'wheel', 'pointerdown'].forEach(ev => {
+                track.addEventListener(ev, stopAuto, {
+                    passive: true
+                });
+            });
+            ['mouseleave', 'touchend', 'focusout'].forEach(ev => {
+                track.addEventListener(ev, () => setTimeout(startAuto, 1500), {
+                    passive: true
+                });
+            });
+
+            // Resize debounce to keep snaps aligned
+            let rAF;
+            window.addEventListener('resize', () => {
+                cancelAnimationFrame(rAF);
+                rAF = requestAnimationFrame(() => {
+                    // Re-align to current slide after resize
+                    const i = currentIndex();
+                    scrollToIndex(i);
+                });
+            });
+        })();
+    </script>
 
     <!-- Footer -->
     <footer class="bg-white text-black py-12">
@@ -497,12 +844,6 @@
                     <div class="flex space-x-4">
                         <a href="https://www.linkedin.com/in/lazydeveloper-teched-167727301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-gray-600 hover:text-black transition-colors">
                             <i class="fab fa-linkedin text-[25px]"></i>
-                        </a>
-                        <a href="https://github.com/yourusername" target="_blank" class="text-gray-600 hover:text-black transition-colors">
-                            <i class="fab fa-github text-[25px]"></i>
-                        </a>
-                        <a href="https://twitter.com/yourhandle" target="_blank" class="text-gray-600 hover:text-black transition-colors">
-                            <i class="fab fa-twitter text-[25px]"></i>
                         </a>
                         <a href="https://www.instagram.com/thelazy.developer?igsh=MXM4ZWt6OW41cngyaA==" target="_blank" class="text-gray-600 hover:text-black transition-colors">
                             <i class="fab fa-instagram text-[25px]"></i>

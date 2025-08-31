@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazyDeveloper Teched Pvt. Ltd.</title>
+    <link rel="icon" href="img/logo_main.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=HK+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['HK Grotesk', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                        'hk': ['HK Grotesk', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'slideDown': 'slideDown 0.3s ease-out',
+                        'slideUp': 'slideUp 0.3s ease-in',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            }
+                        },
+                        gradient: {
+                            '0%, 100%': {
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        slideDown: {
+                            '0%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            },
+                            '100%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            },
+                            '100%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .select-arrow {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+    </style>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #e4e4e4, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient 25s ease infinite;
+        }
+        
+        .code-animation {
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            font-family: 'HK Grotesk', sans-serif;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .tech-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .section-card:hover {
+            border-left: 4px solid #000;
+            transform: translateX(8px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-10 sm:h-12">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-violet-900 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-700 hover:text-violet-900 transition-colors">About</a>
+                    <a href="services.html" class="text-gray-700 hover:text-violet-900 transition-colors">Services</a>
+                    <!-- Dropdown for Our Branches -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-violet-900 transition-colors flex items-center gap-1">
+            Our Branches
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+                        <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
+                            <a href="nashik.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nashik</a>
+                            <a href="nagpur.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nagpur</a>
+                            <a href="mumbai.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mumbai</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="text-gray-700 hover:text-violet-900 transition-colors">Contact</a>
+
+
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 hamburger">
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line1 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line2 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line3"></div>
+      </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 right-0 w-64 h-screen bg-white shadow-2xl z-40 overflow-y-auto">
+            <div class="flex flex-col p-6 space-y-6">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Home</a>
+                <a href="about.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">About</a>
+                <a href="services.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Services</a>
+                <!-- Mobile Dropdown -->
+                <div>
+                    <button id="branches-toggle" class="w-full flex justify-between items-center text-gray-700 hover:text-blue-600 text-lg font-medium">
+          Our Branches
+          <svg class="w-5 h-5 transition-transform" id="branches-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+                    <div id="branches-submenu" class="hidden flex-col ml-4 mt-2 space-y-2">
+                        <a href="nashik.html" class="text-gray-600 hover:text-blue-600">Nashik</a>
+                        <a href="nagpur.html" class="text-gray-600 hover:text-blue-600">Nagpur</a>
+                        <a href="mumbai.html" class="text-gray-600 hover:text-blue-600">Mumbai</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Contact</a>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+    </nav>
+
+    <!-- Script for Mobile Dropdown -->
+    <script>
+        document.getElementById("branches-toggle").addEventListener("click", function() {
+            const submenu = document.getElementById("branches-submenu");
+            const icon = document.getElementById("branches-icon");
+            submenu.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+        });
+    </script>
+    <!-- Header -->
+    <header class="py-16 px-4 sm:px-6 lg:px-8 border-b border-gray-200 text-center mt-10">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-5xl lg:text-6xl font-bold mb-6">Web Development</h1>
+            <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                A comprehensive guide to modern web development including processes, technologies, methodologies, and implementation strategies for building robust digital solutions.
+            </p>
+        </div>
+    </header>
+
+
+    <!-- Development Process -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12">Development Process</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="section-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">01</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Planning & Analysis</h3>
+                    <p class="text-gray-600 mb-4">Requirements gathering, user research, competitor analysis, and project scope definition. Creating wireframes, user stories, and technical specifications.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Stakeholder interviews</li>
+                        <li>• Market research</li>
+                        <li>• Technical feasibility</li>
+                        <li>• Timeline estimation</li>
+                    </ul>
+                </div>
+
+                <div class="section-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">02</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Design & Architecture</h3>
+                    <p class="text-gray-600 mb-4">UI/UX design creation, system architecture planning, database design, and API structure definition. Establishing design systems and component libraries.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Mockups & prototypes</li>
+                        <li>• System architecture</li>
+                        <li>• Database schema</li>
+                        <li>• API documentation</li>
+                    </ul>
+                </div>
+
+                <div class="section-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">03</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Development</h3>
+                    <p class="text-gray-600 mb-4">Frontend and backend development using modern frameworks, implementing responsive design, integrating APIs, and building core functionality.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Frontend development</li>
+                        <li>• Backend services</li>
+                        <li>• Database integration</li>
+                        <li>• Third-party APIs</li>
+                    </ul>
+                </div>
+
+                <div class="section-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">04</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Testing & Quality Assurance</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive testing including unit tests, integration tests, performance testing, security audits, and cross-browser compatibility checks.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Unit & integration tests</li>
+                        <li>• Performance testing</li>
+                        <li>• Security audits</li>
+                        <li>• Browser compatibility</li>
+                    </ul>
+                </div>
+
+                <div class="section-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">05</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Deployment</h3>
+                    <p class="text-gray-600 mb-4">Production deployment setup, CI/CD pipeline configuration, server optimization, domain configuration, and SSL certificate installation.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Server setup</li>
+                        <li>• CI/CD pipelines</li>
+                        <li>• Domain & SSL</li>
+                        <li>• Performance optimization</li>
+                    </ul>
+                </div>
+
+                <div class="section-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">06</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Maintenance & Support</h3>
+                    <p class="text-gray-600 mb-4">Ongoing maintenance, security updates, feature enhancements, performance monitoring, backup management, and technical support.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Regular updates</li>
+                        <li>• Security patches</li>
+                        <li>• Performance monitoring</li>
+                        <li>• Backup management</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12">Technology Stack</h2>
+
+            <!-- Frontend Technologies -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6">Frontend Technologies</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4 text-lg">Core Languages</h4>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">HTML5</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">CSS3</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">JavaScript</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">TypeScript</span>
+                        </div>
+
+                        <h4 class="font-semibold mb-4 text-lg">Frameworks & Libraries</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">React.js</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Vue.js</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Angular</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Next.js</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Nuxt.js</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4 text-lg">CSS Frameworks</h4>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Tailwind CSS</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Bootstrap</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Material-UI</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Sass/SCSS</span>
+                        </div>
+
+                        <h4 class="font-semibold mb-4 text-lg">Build Tools</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Webpack</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Vite</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Parcel</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">ESLint</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Prettier</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Technologies -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6">Backend Technologies</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4 text-lg">Programming Languages</h4>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Node.js</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Python</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">PHP</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Java</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">C#</span>
+                        </div>
+
+                        <h4 class="font-semibold mb-4 text-lg">Frameworks</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Express.js</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Django</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Flask</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Laravel</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Spring Boot</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4 text-lg">Databases</h4>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">MongoDB</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">PostgreSQL</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">MySQL</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Redis</span>
+                        </div>
+
+                        <h4 class="font-semibold mb-4 text-lg">Cloud Services</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">AWS</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Google Cloud</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Azure</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Heroku</span>
+                            <span class="tech-tag px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm">Vercel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Types -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12">Types of Web Development</h2>
+
+            <div class="space-y-12">
+
+                <!-- Static Websites -->
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-2xl font-semibold mb-4">Static Websites</h3>
+                    <p class="text-gray-600 mb-4 text-lg">Fixed content websites where each page is coded in HTML and displays the same information to every visitor. Ideal for informational sites with minimal interactivity requirements.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Characteristics</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Fast loading times</li>
+                                <li>• Simple hosting requirements</li>
+                                <li>• High security</li>
+                                <li>• Cost-effective</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technologies</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• HTML5, CSS3, JavaScript</li>
+                                <li>• Static Site Generators</li>
+                                <li>• Jekyll, Hugo, Gatsby</li>
+                                <li>• CDN deployment</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Use Cases</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Portfolio websites</li>
+                                <li>• Landing pages</li>
+                                <li>• Company brochures</li>
+                                <li>• Documentation sites</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Websites -->
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-2xl font-semibold mb-4">Dynamic Websites</h3>
+                    <p class="text-gray-600 mb-4 text-lg">Interactive websites that generate content in real-time based on user interactions, database queries, and server-side processing. Content changes based on various factors.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Characteristics</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Real-time content updates</li>
+                                <li>• User interaction capabilities</li>
+                                <li>• Database integration</li>
+                                <li>• Server-side processing</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technologies</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Server-side languages</li>
+                                <li>• Database systems</li>
+                                <li>• CMS platforms</li>
+                                <li>• API integrations</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Use Cases</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• E-commerce platforms</li>
+                                <li>• Social media sites</li>
+                                <li>• News portals</li>
+                                <li>• Web applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Websites -->
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-2xl font-semibold mb-4">E-commerce Websites</h3>
+                    <p class="text-gray-600 mb-4 text-lg">Online platforms designed for buying and selling products or services, featuring shopping carts, payment processing, inventory management, and order tracking systems.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Core Features</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Product catalog</li>
+                                <li>• Shopping cart</li>
+                                <li>• Payment gateway</li>
+                                <li>• Order management</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Platforms</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• WooCommerce</li>
+                                <li>• Shopify</li>
+                                <li>• Magento</li>
+                                <li>• Custom solutions</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Advanced Features</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Multi-vendor support</li>
+                                <li>• Inventory tracking</li>
+                                <li>• Analytics & reporting</li>
+                                <li>• Mobile optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Applications -->
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-2xl font-semibold mb-4">Web Applications</h3>
+                    <p class="text-gray-600 mb-4 text-lg">Interactive applications that run in web browsers, providing software-like functionality without requiring installation. Built using modern web technologies and frameworks.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Types</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Single Page Applications</li>
+                                <li>• Progressive Web Apps</li>
+                                <li>• Multi-page Applications</li>
+                                <li>• Hybrid applications</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technologies</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Modern JS frameworks</li>
+                                <li>• RESTful APIs</li>
+                                <li>• WebSocket connections</li>
+                                <li>• Service workers</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Examples</h4>
+                            <ul class="text-gray-600 text-sm space-y-1">
+                                <li>• Project management tools</li>
+                                <li>• CRM systems</li>
+                                <li>• Online editors</li>
+                                <li>• Dashboard applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Methodologies -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12">Development Methodologies</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div class="bg-white border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">Agile Development</h3>
+                    <p class="text-gray-600 mb-6">Iterative development approach focusing on collaboration, customer feedback, and rapid delivery of working software through short development cycles called sprints.</p>
+                    <div class="space-y-3">
+                        <div>
+                            <h4 class="font-medium mb-2">Key Principles</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Individuals over processes</li>
+                                <li>• Working software over documentation</li>
+                                <li>• Customer collaboration</li>
+                                <li>• Responding to change</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2">Practices</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Sprint planning & reviews</li>
+                                <li>• Daily standups</li>
+                                <li>• Continuous integration</li>
+                                <li>• User story development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">DevOps Integration</h3>
+                    <p class="text-gray-600 mb-6">Combination of development and operations practices to shorten development cycles, increase deployment frequency, and ensure reliable releases.</p>
+                    <div class="space-y-3">
+                        <div>
+                            <h4 class="font-medium mb-2">Core Practices</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Continuous Integration/Deployment</li>
+                                <li>• Infrastructure as Code</li>
+                                <li>• Automated testing</li>
+                                <li>• Monitoring & logging</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2">Tools</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Docker & Kubernetes</li>
+                                <li>• Jenkins, GitLab CI</li>
+                                <li>• Terraform, Ansible</li>
+                                <li>• Prometheus, Grafana</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">Test-Driven Development</h3>
+                    <p class="text-gray-600 mb-6">Development methodology where tests are written before the actual code, ensuring higher code quality, better design, and comprehensive test coverage.</p>
+                    <div class="space-y-3">
+                        <div>
+                            <h4 class="font-medium mb-2">Process</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Write failing test</li>
+                                <li>• Write minimal code to pass</li>
+                                <li>• Refactor code</li>
+                                <li>• Repeat cycle</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2">Benefits</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Higher code quality</li>
+                                <li>• Better documentation</li>
+                                <li>• Reduced debugging time</li>
+                                <li>• Confident refactoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-semibold mb-4">Responsive Design</h3>
+                    <p class="text-gray-600 mb-6">Design approach ensuring websites work seamlessly across all devices and screen sizes, providing optimal user experience on desktops, tablets, and mobile devices.</p>
+                    <div class="space-y-3">
+                        <div>
+                            <h4 class="font-medium mb-2">Techniques</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Flexible grid layouts</li>
+                                <li>• Media queries</li>
+                                <li>• Flexible images</li>
+                                <li>• Mobile-first approach</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2">Tools</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• CSS Grid & Flexbox</li>
+                                <li>• Bootstrap, Tailwind</li>
+                                <li>• Browser dev tools</li>
+                                <li>• Viewport meta tag</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.section-card, .tech-tag');
+            animatedElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+                observer.observe(element);
+            });
+        });
+
+        // Add click handlers for tech tags
+        document.querySelectorAll('.tech-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                const techName = this.textContent;
+                console.log(`Clicked on: ${techName}`);
+                // Could integrate with search or documentation links
+            });
+        });
+    </script>
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Something Amazing?</h2>
+            <p class="text-xl mb-8 opacity-90">
+                Let's collaborate to transform your ideas into impactful digital solutions.
+            </p>
+            <a href="contact.html" class="px-12 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg inline-block text-center">
+                Contact Us →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-black py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <a href="/index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-20 sm:h-22">
+                    </a>
+                    <p class="text-gray-600">
+                        Building smart software solutions for the<br>digital future.<br><br>
+                    </p>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/lazydeveloper-teched-167727301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-linkedin text-[25px]"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thelazy.developer?igsh=MXM4ZWt6OW41cngyaA==" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-instagram text-[25px]"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1FLaZ2ooBV/" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-facebook text-[25px]"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-600 hover:text-black transition-colors">Home</a>
+                        <a href="about.html" class="block text-gray-600 hover:text-black transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-600 hover:text-black transition-colors">Services</a>
+                        <a href="contact.html" class="block text-gray-600 hover:text-black transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Us</h4>
+                    <p class="text-gray-600 flex items-center gap-2">
+                        <i class="fas fa-envelope text-black"></i>
+                        <a href="mailto:lazydeveloper8@gmail.com" class="hover:text-black">lazydeveloper8@gmail.com</a>
+                    </p>
+
+                    <p class="text-gray-600 flex items-center gap-2 mt-2">
+                        <i class="fas fa-phone text-black"></i>
+                        <a href="tel:+919356035139" class="hover:text-black">+91 93560 35139</a>
+                    </p>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Head Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            Sector-6, Shantinagar, Mira Road (E),<br> Thane - 401107, Maharashtra, India
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Nashik Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            3rd Floor, Nexus Point, College Road,<br> Nashik - 422005, Maharashtra, India
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-900">
+                <p>&copy; 2025 LazyDeveloper Teched Pvt Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        function toggleMobileMenu() {
+            const isActive = mobileMenu.classList.contains('active');
+
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.remove('hidden');
+            mobileMenuButton.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.add('hidden');
+            mobileMenuButton.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on menu links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if opened
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Typing animation for hero section
+        const texts = [
+            "const solution = createInnovation();",
+            "function buildFuture() { return success; }",
+            "// Transforming ideas into reality",
+            "npm install awesome-solutions",
+            "git commit -m 'Building tomorrow'"
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+
+        function typeWriter() {
+            const typingElement = document.getElementById('typing-text');
+
+            if (isDeleting) {
+                currentText = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentText = texts[textIndex].substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            typingElement.textContent = currentText;
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === texts[textIndex].length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        typeWriter();
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white/90');
+            } else {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white/95');
+            }
+        });
+    </script>
+</body>
+
+</html>

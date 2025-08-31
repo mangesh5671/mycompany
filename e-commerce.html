@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazyDeveloper Teched Pvt. Ltd.</title>
+    <link rel="icon" href="img/logo_main.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=HK+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['HK Grotesk', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                        'hk': ['HK Grotesk', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'slideDown': 'slideDown 0.3s ease-out',
+                        'slideUp': 'slideUp 0.3s ease-in',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            }
+                        },
+                        gradient: {
+                            '0%, 100%': {
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        slideDown: {
+                            '0%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            },
+                            '100%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            },
+                            '100%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .select-arrow {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+    </style>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #e4e4e4, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient 25s ease infinite;
+        }
+        
+        .code-animation {
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            font-family: 'HK Grotesk', sans-serif;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tech-badge {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .process-step {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .process-step:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .process-step:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .process-step:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        .process-step:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+        
+        .process-step:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+        
+        .process-step:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-10 sm:h-12">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-violet-900 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-700 hover:text-violet-900 transition-colors">About</a>
+                    <a href="services.html" class="text-gray-700 hover:text-violet-900 transition-colors">Services</a>
+                    <!-- Dropdown for Our Branches -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-violet-900 transition-colors flex items-center gap-1">
+            Our Branches
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+                        <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
+                            <a href="nashik.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nashik</a>
+                            <a href="nagpur.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nagpur</a>
+                            <a href="mumbai.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mumbai</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="text-gray-700 hover:text-violet-900 transition-colors">Contact</a>
+
+
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 hamburger">
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line1 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line2 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line3"></div>
+      </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 right-0 w-64 h-screen bg-white shadow-2xl z-40 overflow-y-auto">
+            <div class="flex flex-col p-6 space-y-6">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Home</a>
+                <a href="about.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">About</a>
+                <a href="services.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Services</a>
+                <!-- Mobile Dropdown -->
+                <div>
+                    <button id="branches-toggle" class="w-full flex justify-between items-center text-gray-700 hover:text-blue-600 text-lg font-medium">
+          Our Branches
+          <svg class="w-5 h-5 transition-transform" id="branches-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+                    <div id="branches-submenu" class="hidden flex-col ml-4 mt-2 space-y-2">
+                        <a href="nashik.html" class="text-gray-600 hover:text-blue-600">Nashik</a>
+                        <a href="nagpur.html" class="text-gray-600 hover:text-blue-600">Nagpur</a>
+                        <a href="mumbai.html" class="text-gray-600 hover:text-blue-600">Mumbai</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Contact</a>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+    </nav>
+
+    <!-- Script for Mobile Dropdown -->
+    <script>
+        document.getElementById("branches-toggle").addEventListener("click", function() {
+            const submenu = document.getElementById("branches-submenu");
+            const icon = document.getElementById("branches-icon");
+            submenu.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+        });
+    </script>
+
+
+
+    <!-- Header -->
+    <header class="border-b border-gray-200 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold gradient-text mb-4">E-Commerce Development</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Complete guide to building robust, scalable, and feature-rich online stores with modern technologies and best practices</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Overview Section -->
+        <section class="mb-16">
+            <div class="section-card bg-gray-50 border border-gray-200 rounded-lg p-8">
+                <h2 class="text-3xl font-bold mb-6">What is E-Commerce Development?</h2>
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    E-Commerce development is the comprehensive process of creating, building, and maintaining online platforms that enable businesses to sell products or services over the internet. It encompasses everything from user interface design and payment processing
+                    to inventory management and data analytics.
+                </p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border-l-4 border-black pl-4">
+                        <h4 class="font-semibold text-lg mb-2">Frontend Development</h4>
+                        <p class="text-gray-600">User-facing interfaces, shopping carts, product catalogs, and responsive design</p>
+                    </div>
+                    <div class="border-l-4 border-black pl-4">
+                        <h4 class="font-semibold text-lg mb-2">Backend Development</h4>
+                        <p class="text-gray-600">Server logic, databases, APIs, security, and payment processing</p>
+                    </div>
+                    <div class="border-l-4 border-black pl-4">
+                        <h4 class="font-semibold text-lg mb-2">Integration Services</h4>
+                        <p class="text-gray-600">Third-party APIs, marketplace connectivity, and analytics tools</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12">E-Commerce Development Process</h2>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="process-step section-card border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold mr-4">1</div>
+                        <h3 class="text-xl font-bold">Planning & Analysis</h3>
+                    </div>
+                    <ul class="text-gray-700 space-y-2 ml-14">
+                        <li>• Business requirements gathering</li>
+                        <li>• Market research and competitor analysis</li>
+                        <li>• Technology stack selection</li>
+                        <li>• Architecture design and wireframing</li>
+                        <li>• Project timeline and resource allocation</li>
+                    </ul>
+                </div>
+
+                <div class="process-step section-card border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold mr-4">2</div>
+                        <h3 class="text-xl font-bold">UI/UX Design</h3>
+                    </div>
+                    <ul class="text-gray-700 space-y-2 ml-14">
+                        <li>• User experience research</li>
+                        <li>• Responsive design mockups</li>
+                        <li>• Product catalog layout</li>
+                        <li>• Checkout flow optimization</li>
+                        <li>• Brand identity integration</li>
+                    </ul>
+                </div>
+
+                <div class="process-step section-card border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold mr-4">3</div>
+                        <h3 class="text-xl font-bold">Frontend Development</h3>
+                    </div>
+                    <ul class="text-gray-700 space-y-2 ml-14">
+                        <li>• HTML5, CSS3, JavaScript implementation</li>
+                        <li>• React/Vue/Angular framework integration</li>
+                        <li>• Shopping cart functionality</li>
+                        <li>• Product search and filtering</li>
+                        <li>• Mobile responsiveness</li>
+                    </ul>
+                </div>
+
+                <div class="process-step section-card border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold mr-4">4</div>
+                        <h3 class="text-xl font-bold">Backend Development</h3>
+                    </div>
+                    <ul class="text-gray-700 space-y-2 ml-14">
+                        <li>• Server-side logic implementation</li>
+                        <li>• Database design and optimization</li>
+                        <li>• API development and integration</li>
+                        <li>• Security implementation</li>
+                        <li>• Performance optimization</li>
+                    </ul>
+                </div>
+
+                <div class="process-step section-card border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold mr-4">5</div>
+                        <h3 class="text-xl font-bold">Integration & Testing</h3>
+                    </div>
+                    <ul class="text-gray-700 space-y-2 ml-14">
+                        <li>• Payment gateway integration</li>
+                        <li>• Third-party API connections</li>
+                        <li>• Automated testing implementation</li>
+                        <li>• Security vulnerability testing</li>
+                        <li>• Performance load testing</li>
+                    </ul>
+                </div>
+
+                <div class="process-step section-card border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center font-bold mr-4">6</div>
+                        <h3 class="text-xl font-bold">Deployment & Maintenance</h3>
+                    </div>
+                    <ul class="text-gray-700 space-y-2 ml-14">
+                        <li>• Production environment setup</li>
+                        <li>• SSL certificate installation</li>
+                        <li>• SEO optimization</li>
+                        <li>• Analytics implementation</li>
+                        <li>• Ongoing support and updates</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12">Technology Stack</h2>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Frontend Technologies -->
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Frontend Technologies</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">Core Technologies</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">HTML5</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">CSS3</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">JavaScript</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">TypeScript</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">Frameworks & Libraries</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">React.js</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Vue.js</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Angular</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Next.js</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Nuxt.js</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">Styling & UI</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Tailwind CSS</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Bootstrap</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Material-UI</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Styled Components</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Technologies -->
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Backend Technologies</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">Server Languages</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Node.js</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Python</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">PHP</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Java</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">C#</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">Frameworks</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Express.js</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Django</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Laravel</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Spring Boot</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">ASP.NET</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3">Databases</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">MySQL</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">PostgreSQL</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">MongoDB</span>
+                                <span class="tech-badge px-3 py-1 bg-gray-100 border border-gray-300 rounded-full text-sm">Redis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Features -->
+        <section class="mb-16 bg-white text-black">
+            <h2 class="text-3xl font-bold text-center mb-12">Core E-Commerce Features</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="section-card border border-gray-300 rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-white border border-black rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-store text-2xl text-black"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Custom Online Stores</h3>
+                    <p class="text-gray-700 text-sm">Tailored e-commerce platforms with unique branding, custom functionality, and scalable architecture</p>
+                </div>
+
+                <div class="section-card border border-gray-300 rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-white border border-black rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-credit-card text-2xl text-black"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Payment Gateway Integration</h3>
+                    <p class="text-gray-700 text-sm">Secure payment processing with multiple gateways: Stripe, PayPal, Razorpay, and more</p>
+                </div>
+
+                <div class="section-card border border-gray-300 rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-white border border-black rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-link text-2xl text-black"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Marketplace API Connectivity</h3>
+                    <p class="text-gray-700 text-sm">Integration with Amazon, Flipkart, eBay, and other major marketplaces for multi-channel selling</p>
+                </div>
+
+                <div class="section-card border border-gray-300 rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-white border border-black rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-bar text-2xl text-black"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Inventory Management</h3>
+                    <p class="text-gray-700 text-sm">Real-time stock tracking, automated reordering, and comprehensive inventory analytics</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Types of E-Commerce -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12">Types of E-Commerce Platforms</h2>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-bold mb-4">B2C (Business to Consumer)</h3>
+                    <p class="text-gray-700 mb-4">Direct sales from businesses to individual consumers</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Retail online stores</li>
+                        <li>• Fashion and apparel</li>
+                        <li>• Electronics and gadgets</li>
+                        <li>• Food and grocery delivery</li>
+                    </ul>
+                </div>
+
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-bold mb-4">B2B (Business to Business)</h3>
+                    <p class="text-gray-700 mb-4">Commercial transactions between businesses</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Wholesale marketplaces</li>
+                        <li>• Manufacturing supplies</li>
+                        <li>• Software and services</li>
+                        <li>• Bulk ordering systems</li>
+                    </ul>
+                </div>
+
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-xl font-bold mb-4">C2C (Consumer to Consumer)</h3>
+                    <p class="text-gray-700 mb-4">Peer-to-peer marketplace platforms</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Auction websites</li>
+                        <li>• Classified marketplaces</li>
+                        <li>• Handmade product platforms</li>
+                        <li>• Second-hand goods trading</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Features -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12">Advanced E-Commerce Features</h2>
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Data Analytics & Reporting</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">Sales Analytics</h4>
+                            <p class="text-gray-600 text-sm">Revenue tracking, conversion rates, and performance metrics</p>
+                        </div>
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">Customer Insights</h4>
+                            <p class="text-gray-600 text-sm">User behavior analysis, demographics, and purchasing patterns</p>
+                        </div>
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">Inventory Reports</h4>
+                            <p class="text-gray-600 text-sm">Stock levels, turnover rates, and demand forecasting</p>
+                        </div>
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">Marketing Analytics</h4>
+                            <p class="text-gray-600 text-sm">Campaign performance, ROI tracking, and attribution modeling</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card border border-gray-200 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Security & Performance</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">SSL/TLS Encryption</h4>
+                            <p class="text-gray-600 text-sm">End-to-end data encryption and secure transactions</p>
+                        </div>
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">PCI DSS Compliance</h4>
+                            <p class="text-gray-600 text-sm">Payment card industry data security standards</p>
+                        </div>
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">CDN Integration</h4>
+                            <p class="text-gray-600 text-sm">Global content delivery for faster loading times</p>
+                        </div>
+                        <div class="border-l-4 border-gray-300 pl-4">
+                            <h4 class="font-semibold mb-1">Load Balancing</h4>
+                            <p class="text-gray-600 text-sm">High availability and scalability infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Options -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12">E-Commerce Platform Options</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="section-card border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-3">Custom Development</h3>
+                    <p class="text-gray-600 text-sm mb-3">Built from scratch with complete control</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>✓ Full customization</li>
+                        <li>✓ Scalable architecture</li>
+                        <li>✓ Unique functionality</li>
+                        <li>✗ Higher development cost</li>
+                    </ul>
+                </div>
+
+                <div class="section-card border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-3">SaaS Platforms</h3>
+                    <p class="text-gray-600 text-sm mb-3">Shopify, BigCommerce, WooCommerce</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>✓ Quick deployment</li>
+                        <li>✓ Lower initial cost</li>
+                        <li>✓ Built-in features</li>
+                        <li>✗ Limited customization</li>
+                    </ul>
+                </div>
+
+                <div class="section-card border border-gray-200 rounded-lg p-6">
+                    <h3 class="font-bold text-lg mb-3">Headless Commerce</h3>
+                    <p class="text-gray-600 text-sm mb-3">API-first architecture with flexible frontend</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>✓ Multi-channel support</li>
+                        <li>✓ Fast performance</li>
+                        <li>✓ Developer flexibility</li>
+                        <li>✗ Complex implementation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all section cards for animation
+        document.querySelectorAll('.section-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Tech badge hover effects
+        document.querySelectorAll('.tech-badge').forEach(badge => {
+            badge.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#000';
+                this.style.color = '#fff';
+                this.style.borderColor = '#000';
+            });
+
+            badge.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '#f3f4f6';
+                this.style.color = '#000';
+                this.style.borderColor = '#d1d5db';
+            });
+        });
+    </script>
+
+
+
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Something Amazing?</h2>
+            <p class="text-xl mb-8 opacity-90">
+                Let's collaborate to transform your ideas into impactful digital solutions.
+            </p>
+            <a href="contact.html" class="px-12 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg inline-block text-center">
+                Contact Us →
+            </a>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-white text-black py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <a href="/index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-20 sm:h-22">
+                    </a>
+                    <p class="text-gray-600">
+                        Building smart software solutions for the<br>digital future.<br><br>
+                    </p>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/lazydeveloper-teched-167727301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-linkedin text-[25px]"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thelazy.developer?igsh=MXM4ZWt6OW41cngyaA==" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-instagram text-[25px]"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1FLaZ2ooBV/" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-facebook text-[25px]"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-600 hover:text-black transition-colors">Home</a>
+                        <a href="about.html" class="block text-gray-600 hover:text-black transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-600 hover:text-black transition-colors">Services</a>
+                        <a href="contact.html" class="block text-gray-600 hover:text-black transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Us</h4>
+                    <p class="text-gray-600 flex items-center gap-2">
+                        <i class="fas fa-envelope text-black"></i>
+                        <a href="mailto:lazydeveloper8@gmail.com" class="hover:text-black">lazydeveloper8@gmail.com</a>
+                    </p>
+
+                    <p class="text-gray-600 flex items-center gap-2 mt-2">
+                        <i class="fas fa-phone text-black"></i>
+                        <a href="tel:+919356035139" class="hover:text-black">+91 93560 35139</a>
+                    </p>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Head Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            Sector-6, Shantinagar, Mira Road (E),<br> Thane - 401107, Maharashtra, India
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Nashik Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            3rd Floor, Nexus Point, College Road,<br> Nashik - 422005, Maharashtra, India
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-900">
+                <p>&copy; 2025 LazyDeveloper Teched Pvt Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        function toggleMobileMenu() {
+            const isActive = mobileMenu.classList.contains('active');
+
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.remove('hidden');
+            mobileMenuButton.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.add('hidden');
+            mobileMenuButton.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on menu links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if opened
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Typing animation for hero section
+        const texts = [
+            "const solution = createInnovation();",
+            "function buildFuture() { return success; }",
+            "// Transforming ideas into reality",
+            "npm install awesome-solutions",
+            "git commit -m 'Building tomorrow'"
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+
+        function typeWriter() {
+            const typingElement = document.getElementById('typing-text');
+
+            if (isDeleting) {
+                currentText = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentText = texts[textIndex].substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            typingElement.textContent = currentText;
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === texts[textIndex].length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        typeWriter();
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white/90');
+            } else {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white/95');
+            }
+        });
+    </script>
+</body>
+
+</html>

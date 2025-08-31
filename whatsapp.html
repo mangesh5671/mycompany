@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazyDeveloper Teched Pvt. Ltd.</title>
+    <link rel="icon" href="img/logo_main.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=HK+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['HK Grotesk', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+                        'hk': ['HK Grotesk', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 15s ease infinite',
+                        'slideDown': 'slideDown 0.3s ease-out',
+                        'slideUp': 'slideUp 0.3s ease-in',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            }
+                        },
+                        gradient: {
+                            '0%, 100%': {
+                                'background-position': '0% 50%'
+                            },
+                            '50%': {
+                                'background-position': '100% 50%'
+                            }
+                        },
+                        slideDown: {
+                            '0%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            },
+                            '100%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                transform: 'translateY(0)',
+                                opacity: '1'
+                            },
+                            '100%': {
+                                transform: 'translateY(-100%)',
+                                opacity: '0'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .select-arrow {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+    </style>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #e4e4e4, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient 25s ease infinite;
+        }
+        
+        .code-animation {
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            font-family: 'HK Grotesk', sans-serif;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .line1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active .line2 {
+            opacity: 0;
+        }
+        
+        .hamburger.active .line3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-10 sm:h-12">
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-700 hover:text-violet-900 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-700 hover:text-violet-900 transition-colors">About</a>
+                    <a href="services.html" class="text-gray-700 hover:text-violet-900 transition-colors">Services</a>
+                    <!-- Dropdown for Our Branches -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-violet-900 transition-colors flex items-center gap-1">
+            Our Branches
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+                        <div class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300">
+                            <a href="nashik.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nashik</a>
+                            <a href="nagpur.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Nagpur</a>
+                            <a href="mumbai.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mumbai</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="text-gray-700 hover:text-violet-900 transition-colors">Contact</a>
+
+
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 hamburger">
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line1 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line2 mb-1"></div>
+        <div class="w-6 h-0.5 bg-gray-600 hamburger-line line3"></div>
+      </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed top-16 right-0 w-64 h-screen bg-white shadow-2xl z-40 overflow-y-auto">
+            <div class="flex flex-col p-6 space-y-6">
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Home</a>
+                <a href="about.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">About</a>
+                <a href="services.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Services</a>
+                <!-- Mobile Dropdown -->
+                <div>
+                    <button id="branches-toggle" class="w-full flex justify-between items-center text-gray-700 hover:text-blue-600 text-lg font-medium">
+          Our Branches
+          <svg class="w-5 h-5 transition-transform" id="branches-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+                    <div id="branches-submenu" class="hidden flex-col ml-4 mt-2 space-y-2">
+                        <a href="nashik.html" class="text-gray-600 hover:text-blue-600">Nashik</a>
+                        <a href="nagpur.html" class="text-gray-600 hover:text-blue-600">Nagpur</a>
+                        <a href="mumbai.html" class="text-gray-600 hover:text-blue-600">Mumbai</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium mobile-menu-link">Contact</a>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+    </nav>
+
+    <!-- Script for Mobile Dropdown -->
+    <script>
+        document.getElementById("branches-toggle").addEventListener("click", function() {
+            const submenu = document.getElementById("branches-submenu");
+            const icon = document.getElementById("branches-icon");
+            submenu.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+        });
+    </script>
+
+
+
+
+    <div class="container mx-auto px-6 py-8 max-w-6xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12 fade-in mt-16">
+            <h1 class="text-4xl font-bold mb-4  border-black inline-block pb-2">
+                WhatsApp Business API Integration
+            </h1>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                Comprehensive guide to implementing WhatsApp Business API for automated messaging, customer support, and business process integration.
+            </p>
+        </header>
+
+        <!-- Overview Section -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-black pl-4">Overview</h2>
+            <div class="bg-gray-50 p-6 rounded-lg border-2 border-black">
+                <p class="text-gray-800 leading-relaxed mb-4">
+                    WhatsApp Business API enables medium and large businesses to communicate with customers at scale. Unlike the regular WhatsApp Business app, the API allows for programmatic integration, automation, and advanced customer service capabilities.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="hover-lift">
+                        <h3 class="text-xl font-semibold mb-2">Key Benefits</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Scale conversations beyond device limitations</li>
+                            <li>• Automate customer interactions</li>
+                            <li>• Integrate with existing business systems</li>
+                            <li>• Support multiple agents and departments</li>
+                        </ul>
+                    </div>
+                    <div class="hover-lift">
+                        <h3 class="text-xl font-semibold mb-2">Use Cases</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Customer support automation</li>
+                            <li>• Appointment booking and reminders</li>
+                            <li>• Order notifications and tracking</li>
+                            <li>• Marketing campaigns and broadcasts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Process -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-black pl-4">Integration Process</h2>
+
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">1</div>
+                        <h3 class="text-2xl font-semibold">Account Setup & Verification</h3>
+                    </div>
+                    <div class="ml-12">
+                        <p class="text-gray-700 mb-3">Establish your business presence on WhatsApp platform.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• Create Facebook Business Manager account</li>
+                            <li>• Set up WhatsApp Business Account (WABA)</li>
+                            <li>• Verify business information and phone number</li>
+                            <li>• Complete business verification process</li>
+                            <li>• Configure business profile and messaging templates</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">2</div>
+                        <h3 class="text-2xl font-semibold">Choose Business Solution Provider (BSP)</h3>
+                    </div>
+                    <div class="ml-12">
+                        <p class="text-gray-700 mb-3">Select an authorized partner to manage your API access.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• Evaluate BSP options (Twilio, MessageBird, 360Dialog, etc.)</li>
+                            <li>• Compare pricing, features, and support levels</li>
+                            <li>• Set up account with chosen BSP</li>
+                            <li>• Obtain API credentials and webhooks</li>
+                            <li>• Configure rate limits and messaging quotas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">3</div>
+                        <h3 class="text-2xl font-semibold">Technical Implementation</h3>
+                    </div>
+                    <div class="ml-12">
+                        <p class="text-gray-700 mb-3">Develop and deploy your integration solution.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• Set up development environment</li>
+                            <li>• Implement webhook endpoints for message handling</li>
+                            <li>• Develop message sending and receiving logic</li>
+                            <li>• Create message templates and approval workflow</li>
+                            <li>• Implement security measures and authentication</li>
+                            <li>• Test in sandbox environment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-black text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4">4</div>
+                        <h3 class="text-2xl font-semibold">Production Deployment</h3>
+                    </div>
+                    <div class="ml-12">
+                        <p class="text-gray-700 mb-3">Launch your solution with monitoring and optimization.</p>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• Deploy to production environment</li>
+                            <li>• Configure monitoring and logging</li>
+                            <li>• Set up analytics and reporting</li>
+                            <li>• Implement user training and documentation</li>
+                            <li>• Monitor performance and optimize delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-black pl-4">Technology Stack</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Backend Technologies -->
+                <div class="bg-gray-50 border-2 border-black p-6 hover-lift">
+                    <h3 class="text-xl font-semibold mb-4">Backend Technologies</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Node.js:</strong> Express, Koa, Fastify</li>
+                        <li><strong>Python:</strong> FastAPI, Django, Flask</li>
+                        <li><strong>Java:</strong> Spring Boot, Quarkus</li>
+                        <li><strong>PHP:</strong> Laravel, Symfony</li>
+                        <li><strong>Go:</strong> Gin, Echo, Fiber</li>
+                        <li><strong>.NET:</strong> ASP.NET Core</li>
+                    </ul>
+                </div>
+
+                <!-- Database Solutions -->
+                <div class="bg-gray-50 border-2 border-black p-6 hover-lift">
+                    <h3 class="text-xl font-semibold mb-4">Database Solutions</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Relational:</strong> PostgreSQL, MySQL</li>
+                        <li><strong>NoSQL:</strong> MongoDB, CouchDB</li>
+                        <li><strong>Cache:</strong> Redis, Memcached</li>
+                        <li><strong>Search:</strong> Elasticsearch</li>
+                        <li><strong>Queue:</strong> RabbitMQ, Apache Kafka</li>
+                        <li><strong>Time-series:</strong> InfluxDB</li>
+                    </ul>
+                </div>
+
+                <!-- Cloud & Infrastructure -->
+                <div class="bg-gray-50 border-2 border-black p-6 hover-lift">
+                    <h3 class="text-xl font-semibold mb-4">Cloud & Infrastructure</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Cloud:</strong> AWS, Google Cloud, Azure</li>
+                        <li><strong>Containers:</strong> Docker, Kubernetes</li>
+                        <li><strong>Serverless:</strong> Lambda, Cloud Functions</li>
+                        <li><strong>CDN:</strong> CloudFlare, CloudFront</li>
+                        <li><strong>Monitoring:</strong> Prometheus, Grafana</li>
+                        <li><strong>Logging:</strong> ELK Stack, Splunk</li>
+                    </ul>
+                </div>
+
+                <!-- Security & Authentication -->
+                <div class="bg-gray-50 border-2 border-black p-6 hover-lift">
+                    <h3 class="text-xl font-semibold mb-4">Security & Authentication</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Auth:</strong> OAuth 2.0, JWT, SAML</li>
+                        <li><strong>Encryption:</strong> TLS/SSL, AES</li>
+                        <li><strong>Secrets:</strong> HashiCorp Vault</li>
+                        <li><strong>API Gateway:</strong> Kong, Ambassador</li>
+                        <li><strong>Security:</strong> OWASP compliance</li>
+                        <li><strong>Audit:</strong> Activity logging</li>
+                    </ul>
+                </div>
+
+                <!-- Integration Tools -->
+                <div class="bg-gray-50 border-2 border-black p-6 hover-lift">
+                    <h3 class="text-xl font-semibold mb-4">Integration Tools</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>API:</strong> REST, GraphQL, WebSockets</li>
+                        <li><strong>Webhooks:</strong> ngrok for testing</li>
+                        <li><strong>Message Queues:</strong> SQS, Pub/Sub</li>
+                        <li><strong>ETL:</strong> Apache Airflow</li>
+                        <li><strong>Automation:</strong> Zapier, IFTTT</li>
+                        <li><strong>Testing:</strong> Postman, Newman</li>
+                    </ul>
+                </div>
+
+                <!-- Analytics & Monitoring -->
+                <div class="bg-gray-50 border-2 border-black p-6 hover-lift">
+                    <h3 class="text-xl font-semibold mb-4">Analytics & Monitoring</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Analytics:</strong> Google Analytics</li>
+                        <li><strong>APM:</strong> New Relic, Datadog</li>
+                        <li><strong>Error Tracking:</strong> Sentry</li>
+                        <li><strong>Uptime:</strong> Pingdom, UptimeRobot</li>
+                        <li><strong>Business Intelligence:</strong> Tableau</li>
+                        <li><strong>Dashboards:</strong> Grafana, Kibana</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Types -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-6 border-l-4 border-black pl-4">Integration Types</h2>
+
+            <div class="space-y-8">
+                <!-- Business Messaging Automation -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <h3 class="text-2xl font-semibold mb-4">Business Messaging Automation</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Features</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Automated welcome messages</li>
+                                <li>• Chatbot integration with NLP</li>
+                                <li>• Auto-responses for common queries</li>
+                                <li>• Workflow automation triggers</li>
+                                <li>• Multi-language support</li>
+                                <li>• Template message broadcasting</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technical Requirements</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Webhook endpoint configuration</li>
+                                <li>• Message template management system</li>
+                                <li>• Natural Language Processing APIs</li>
+                                <li>• Rule engine for automation logic</li>
+                                <li>• Customer data integration</li>
+                                <li>• Analytics and reporting dashboard</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointment Booking Systems -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <h3 class="text-2xl font-semibold mb-4">Appointment Booking Systems</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Features</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Interactive booking conversations</li>
+                                <li>• Calendar integration and sync</li>
+                                <li>• Availability checking in real-time</li>
+                                <li>• Appointment confirmations and reminders</li>
+                                <li>• Rescheduling and cancellation handling</li>
+                                <li>• Staff assignment and notifications</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technical Requirements</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Calendar API integration (Google, Outlook)</li>
+                                <li>• Scheduling database and conflict resolution</li>
+                                <li>• Payment gateway integration</li>
+                                <li>• SMS/Email notification system</li>
+                                <li>• CRM system synchronization</li>
+                                <li>• Time zone handling and conversion</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Status Notifications -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <h3 class="text-2xl font-semibold mb-4">Order Status Notifications</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Features</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Real-time order status updates</li>
+                                <li>• Delivery tracking and ETA</li>
+                                <li>• Order confirmation messages</li>
+                                <li>• Payment status notifications</li>
+                                <li>• Return and refund processing</li>
+                                <li>• Customer feedback collection</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technical Requirements</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• E-commerce platform integration</li>
+                                <li>• Order management system APIs</li>
+                                <li>• Shipping carrier API integration</li>
+                                <li>• Real-time event streaming</li>
+                                <li>• Template message optimization</li>
+                                <li>• Customer preference management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Support Integration -->
+                <div class="bg-white border-2 border-black p-6 hover-lift">
+                    <h3 class="text-2xl font-semibold mb-4">Customer Support Integration</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Features</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Multi-agent conversation routing</li>
+                                <li>• Ticket creation and tracking</li>
+                                <li>• Knowledge base integration</li>
+                                <li>• Escalation workflows</li>
+                                <li>• Customer history and context</li>
+                                <li>• Performance analytics and reporting</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Technical Requirements</h4>
+                            <ul class="space-y-1 text-gray-700">
+                                <li>• Help desk system integration</li>
+                                <li>• Agent dashboard and interface</li>
+                                <li>• Queue management system</li>
+                                <li>• Session management and routing</li>
+                                <li>• Knowledge base APIs</li>
+                                <li>• SLA monitoring and alerting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <script>
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add smooth scrolling
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Add click animations
+        document.querySelectorAll('.hover-lift').forEach(element => {
+            element.addEventListener('click', function() {
+                this.style.transform = 'translateY(-4px)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-2px)';
+                }, 150);
+            });
+        });
+    </script>
+
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Build Something Amazing?</h2>
+            <p class="text-xl mb-8 opacity-90">
+                Let's collaborate to transform your ideas into impactful digital solutions.
+            </p>
+            <a href="contact.html" class="px-12 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg text-lg inline-block text-center">
+                Contact Us →
+            </a>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-white text-black py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <a href="/index.html">
+                        <img src="img/logo_main.png" alt="LazyDeveloper Teched Logo" class="h-20 sm:h-22">
+                    </a>
+                    <p class="text-gray-600">
+                        Building smart software solutions for the<br>digital future.<br><br>
+                    </p>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/lazydeveloper-teched-167727301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-linkedin text-[25px]"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thelazy.developer?igsh=MXM4ZWt6OW41cngyaA==" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-instagram text-[25px]"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1FLaZ2ooBV/" target="_blank" class="text-gray-600 hover:text-black transition-colors">
+                            <i class="fab fa-facebook text-[25px]"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html" class="block text-gray-600 hover:text-black transition-colors">Home</a>
+                        <a href="about.html" class="block text-gray-600 hover:text-black transition-colors">About</a>
+                        <a href="services.html" class="block text-gray-600 hover:text-black transition-colors">Services</a>
+                        <a href="contact.html" class="block text-gray-600 hover:text-black transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Us</h4>
+                    <p class="text-gray-600 flex items-center gap-2">
+                        <i class="fas fa-envelope text-black"></i>
+                        <a href="mailto:lazydeveloper8@gmail.com" class="hover:text-black">lazydeveloper8@gmail.com</a>
+                    </p>
+
+                    <p class="text-gray-600 flex items-center gap-2 mt-2">
+                        <i class="fas fa-phone text-black"></i>
+                        <a href="tel:+919356035139" class="hover:text-black">+91 93560 35139</a>
+                    </p>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Head Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            Sector-6, Shantinagar, Mira Road (E),<br> Thane - 401107, Maharashtra, India
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold">Nashik Office</h5>
+                        <p class="text-gray-600 text-sm">
+                            3rd Floor, Nexus Point, College Road,<br> Nashik - 422005, Maharashtra, India
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-900">
+                <p>&copy; 2025 LazyDeveloper Teched Pvt Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Mobile Menu Functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+        function toggleMobileMenu() {
+            const isActive = mobileMenu.classList.contains('active');
+
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.remove('hidden');
+            mobileMenuButton.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.add('hidden');
+            mobileMenuButton.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on menu links
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on window resize if opened
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Typing animation for hero section
+        const texts = [
+            "const solution = createInnovation();",
+            "function buildFuture() { return success; }",
+            "// Transforming ideas into reality",
+            "npm install awesome-solutions",
+            "git commit -m 'Building tomorrow'"
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+
+        function typeWriter() {
+            const typingElement = document.getElementById('typing-text');
+
+            if (isDeleting) {
+                currentText = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentText = texts[textIndex].substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            typingElement.textContent = currentText;
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === texts[textIndex].length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        typeWriter();
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-white/90');
+            } else {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white/95');
+            }
+        });
+    </script>
+</body>
+
+</html>
